@@ -6,7 +6,9 @@ My poster proposal for JuliaCon 2021
 
 https://github.com/anhinga/julia-notebooks/blob/main/images-as-matrices/presentation/talk-proposal.md
 
-has been accepted. Now it's time to prepare a 3 minute video (June 30 deadline), and
+https://github.com/anhinga/julia-notebooks/blob/main/images-as-matrices/presentation/commentary.md
+
+has been accepted. Now it's time to prepare a 3 minute video (July 5 deadline), and
 to assemble all relevant materials together by the time of presentation (July 28-30 range).
 
 At the moment, we have quite a bit of work-in-progress materials spread across several repositories;
