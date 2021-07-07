@@ -1,0 +1,270 @@
+\documentclass{beamer}
+
+\setbeamertemplate{frametitle}[default][center]
+
+\usepackage{graphicx}
+
+%\usepackage{verbatim}
+
+\definecolor{mymagenta}{rgb}{0.9, 0, 0.9}
+
+\newcommand{\msmagenta}[1]{{\color{mymagenta} #1}}
+
+
+\begin{document}
+
+\title{Multiplying monochrome images as matrices: A*B and softmax}
+\author{Mishka (Michael Bukatin)}
+
+\date
+{\footnotesize 
+JuliaCon 2021 virtual poster\\[2ex]
+
+\msmagenta{I am looking for collaborators}
+}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+Matrix product is interesting and important.\\[2ex]
+
+For example, it plays the key role in Transformers\\ (the leading class of machine learning models).\\[2ex]
+
+It would be great to understand it better.\\[2ex]
+
+Let's do something crazy:\\
+\msmagenta{\bf take monochrome images and multiply them as matrices!}\\[2ex]
+
+That is, \msmagenta{multiply matrices of pixel values.}\\[2ex]
+
+The results are visually interesting and worth further study.
+
+
+\end{frame}
+
+
+
+\begin{frame}
+
+\includegraphics[scale=0.18]{p12}
+
+In Transformers people sometimes {\bf softmax} rows of the left matrix:
+{\scriptsize Attention($Q, K, V$) = softmax($cKQ^T$)$V$ from ``Attention Is All You Need" (2017).}\\[1ex]
+
+In the second example we {\bf softmax} rows of the left matrix {\bf and} columns of the right matrix resulting in products
+with richer,\\ more fine-grained structure.
+
+\end{frame}
+
+\begin{frame}
+
+\includegraphics[scale=0.18]{p34}
+
+In Transformers people sometimes {\bf softmax} rows of the left matrix:
+{\scriptsize Attention($Q, K, V$) = softmax($cKQ^T$)$V$ from ``Attention Is All You Need" (2017).}\\[1ex]
+
+In the second example we {\bf softmax} rows of the left matrix {\bf and} columns of the right matrix resulting in products
+with richer,\\ more fine-grained structure.
+
+\end{frame}
+
+\begin{frame}
+
+We can compose matrix product of images $(X,Y) \rightarrow X*Y$ with other image transformations, 
+e.g. $F(Z_1, \dots, Z_n)*G(Z_1, \dots, Z_n)$:\\[2ex]
+
+\includegraphics[scale=0.18]{product5}
+
+The way to think about this is as follows:\\[2ex]
+
+\begin{itemize} 
+     \item take computational elements used in Transformers
+     \item combine them as primitives in a more flexible fashion to make small machines
+     \item add more primitives as necessary.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+
+We can use outstanding flexibility of differentiable programming in {\bf Julia Flux} and solve machine learning problems
+involving these new flexible machines.\\[2ex]
+
+We give an example of finding an alternative solution to\\ an inverse problem.\\[4ex]
+
+In what follows, we replace one-dimensional\\[1ex]
+
+{\footnotesize\tt softmax(x) = exp.(x) ./ (sum(exp.(x))\\[1ex]}
+
+with\\[1ex]
+
+{\footnotesize\tt x -> f.(x) ./ (sum(f.(x))\\[1ex]}
+
+where\\[1ex]
+
+{\footnotesize\tt f(y) = y + 1\\[1ex]}
+
+which works fine in our case.
+
+\end{frame}
+
+\begin{frame}
+
+Define a matrix transformation \msmagenta{\footnotesize\tt A -> value(A)} as follows:\\[3ex]
+
+{\footnotesize\tt
+
+import LinearAlgebra: transpose, norm\\[1ex]
+
+function normalize\_image(img)\\
+\ \ \ \ img1 = img .- minimum(img)\\
+\ \ \ \ return (1/maximum(img1))*img1\\
+end\\[1ex]
+
+t\_product(x) = normalize\_image(transpose(x)*x)\\[1ex]
+
+norm\_columns(f, x) = f.(x) ./ (sum(f.(x), dims=1))
+
+norm\_image\_columns(f, x) = normalize\_image(norm\_columns(f, x))\\[1ex]
+
+value(A) = t\_product(norm\_image\_columns(x -> x+1, A))
+
+\# this is used instead of true softmax, which would be
+ 
+\# A -> t\_product(norm\_image\_columns(exp, A))\\[3ex]
+}
+
+Define the loss function:\\[1ex]
+
+\msmagenta{\footnotesize\tt
+loss(A, B) = norm(value(A) - B)
+}
+
+\end{frame}
+
+\begin{frame}
+
+{\footnotesize\tt A -> value(A)} applied to the original mandrill:\\[2ex]
+
+\includegraphics[scale=0.18]{value-applied-to-mandrill}
+
+{\footnotesize\tt A -> value(A)} applied to \msmagenta{\footnotesize\tt oscillatory\_warp(mandrill)}:\\[2ex]
+
+\includegraphics[scale=0.18]{value-applied-to-warped-mandrill}
+
+\end{frame}
+
+
+\begin{frame}
+
+Let's pretend that we forgot {\footnotesize\tt oscillatory\_warp(mandrill)} and try to solve the following inverse problem:\\[2ex]
+
+\msmagenta{\footnotesize\tt value(A) = value(oscillatory\_warp(mandrill))\\[2ex]}
+
+
+Initialization: start with {\footnotesize\tt A} equal to the original mandrill image.\\[2ex] 
+
+Take the gradient of \msmagenta{\footnotesize\tt loss(A,value(oscillatory\_warp(mandrill)))} with respect to
+all pixel values of {\footnotesize\tt A} taking advantage of {\bf Julia Flux}, and perform gradient descent with respect to
+{\footnotesize\tt A} aiming to minimize this loss.
+
+
+\end{frame}
+
+
+\begin{frame}
+
+We found a different solution, not the original oscillatory warp:\\[2ex]
+
+{\footnotesize\tt A -> value(A)} applied to the learned image:\\[2ex]
+
+\includegraphics[scale=0.18]{value-applied-to-learned-image}
+
+{\footnotesize\tt A -> value(A)} applied to \msmagenta{\footnotesize\tt oscillatory\_warp(mandrill)}:\\[2ex]
+
+\includegraphics[scale=0.18]{value-applied-to-warped-mandrill}
+\end{frame}
+
+\begin{frame}
+
+Both solutions exhibit ``vertical stripes" structure:\\[2ex]
+
+{\footnotesize\tt A -> value(A)} applied to the learned image:\\[2ex]
+
+\includegraphics[scale=0.18]{value-applied-to-learned-image}
+
+{\footnotesize\tt A -> value(A)} applied to \msmagenta{\footnotesize\tt oscillatory\_warp(mandrill)}:\\[2ex]
+
+\includegraphics[scale=0.18]{value-applied-to-warped-mandrill}
+\end{frame}
+
+\begin{frame}
+
+Taking gradients with respect to images is inspired by \msmagenta{DeepDream}:\\[2ex]
+
+{\footnotesize\tt A -> value(A)} applied to the learned image:\\[2ex]
+
+\includegraphics[scale=0.18]{value-applied-to-learned-image}
+
+{\footnotesize\tt A -> value(A)} applied to \msmagenta{\footnotesize\tt oscillatory\_warp(mandrill)}:\\[2ex]
+
+\includegraphics[scale=0.18]{value-applied-to-warped-mandrill}
+\end{frame}
+
+\begin{frame}
+
+I hope this material will be useful to you.\\[2ex]
+
+{\footnotesize\tt A -> value(A)} applied to the learned image:\\[2ex]
+
+\includegraphics[scale=0.18]{value-applied-to-learned-image}
+
+{\footnotesize\tt A -> value(A)} applied to \msmagenta{\footnotesize\tt oscillatory\_warp(mandrill)}:\\[2ex]
+
+\includegraphics[scale=0.18]{value-applied-to-warped-mandrill}
+\end{frame}
+
+\begin{frame}
+
+Further materials: {\footnotesize\tt https://github.com/anhinga/JuliaCon2021-poster}\\[2ex]
+
+{\footnotesize\tt A -> value(A)} applied to the learned image:\\[2ex]
+
+\includegraphics[scale=0.18]{value-applied-to-learned-image}
+
+{\footnotesize\tt A -> value(A)} applied to \msmagenta{\footnotesize\tt oscillatory\_warp(mandrill)}:\\[2ex]
+
+\includegraphics[scale=0.18]{value-applied-to-warped-mandrill}
+\end{frame}
+
+\begin{frame}
+
+\msmagenta{I am looking for collaborators.}\\[2ex]
+
+{\footnotesize\tt A -> value(A)} applied to the learned image:\\[2ex]
+
+\includegraphics[scale=0.18]{value-applied-to-learned-image}
+
+{\footnotesize\tt A -> value(A)} applied to \msmagenta{\footnotesize\tt oscillatory\_warp(mandrill)}:\\[2ex]
+
+\includegraphics[scale=0.18]{value-applied-to-warped-mandrill}
+\end{frame}
+
+
+\begin{frame}
+
+\msmagenta{I am looking for collaborators.}  Thank you!!!\\[2ex]
+
+{\footnotesize\tt A -> value(A)} applied to the learned image:\\[2ex]
+
+\includegraphics[scale=0.18]{value-applied-to-learned-image}
+
+{\footnotesize\tt A -> value(A)} applied to \msmagenta{\footnotesize\tt oscillatory\_warp(mandrill)}:\\[2ex]
+
+\includegraphics[scale=0.18]{value-applied-to-warped-mandrill}
+\end{frame}
+
+
+\end{document}
