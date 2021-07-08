@@ -14,5 +14,8 @@ The links to our current efforts in this direction can be found here:
 
 https://github.com/anhinga/2021-notes/blob/main/matrix-mult-machines/README.md
 
+A number of auxiliary studies (scale invariance, modifications of `softmax` formulas, and such) are
+referenced in the README here: https://github.com/anhinga/julia-notebooks/tree/main/images-as-matrices
+
 I am planning to use this repository to organize a more streamlined and systematic presentation
 of this material by the time of JuliaCon 2021 (July 28-30).
