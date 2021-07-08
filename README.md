@@ -8,8 +8,11 @@ https://github.com/anhinga/julia-notebooks/blob/main/images-as-matrices/presenta
 
 https://github.com/anhinga/julia-notebooks/blob/main/images-as-matrices/presentation/commentary.md
 
-has been accepted. Now it's time to prepare a 3 minute video (July 5 deadline), and
-to assemble all relevant materials together by the time of presentation (July 28-30 range).
+has been accepted. A 3 minute cover video for this virtual poster and the slide deck associated with this video can be found in the `slides-and-video` subdirectory.
 
-At the moment, we have quite a bit of work-in-progress materials spread across several repositories;
-so this repository is for getting a more compact and streamlines presentation.
+The links to our current efforts in this direction can be found here:
+
+https://github.com/anhinga/2021-notes/blob/main/matrix-mult-machines/README.md
+
+I am planning to use this repository to organize a more streamlined and systematic presentation
+of this material by the time of JuliaCon 2021 (July 28-30).
