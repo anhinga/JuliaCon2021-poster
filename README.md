@@ -21,7 +21,8 @@ Slides 1-4 of the slide deck correspond to
 https://github.com/anhinga/julia-notebooks/blob/main/images-as-matrices/presentation/commentary.md
 
 Slide 5 of the slide deck corresponds to `variations-4` notebook here (to the last
-computation of its directed acycled dataflow graph of image transformations):
+computation of its directed acycled dataflow graph of image transformations which composes
+matrix multiplications with other image transformations):
 
 https://github.com/anhinga/julia-notebooks/tree/main/grimoire-team/variations
 
@@ -34,5 +35,5 @@ https://github.com/anhinga/julia-notebooks/tree/main/flux-may-2021
 A number of auxiliary studies (scale invariance, modifications of `softmax` formulas, and such) are
 referenced in the README here: https://github.com/anhinga/julia-notebooks/tree/main/images-as-matrices
 
-I am planning to use this repository to organize a more streamlined and systematic presentation
-of this material by the time of JuliaCon 2021 (July 28-30).
+I'll keep editing this repository to improve presentation
+of this and related material till the time of JuliaCon 2021 poster session (July 30).
