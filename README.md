@@ -20,8 +20,9 @@ Slides 1-4 of the slide deck correspond to
 
 https://github.com/anhinga/julia-notebooks/blob/main/images-as-matrices/presentation/commentary.md
 
-Slide 5 of the slide deck corresponds to `variations-4` notebook here (to the last
-computation of its directed acycled dataflow graph of image transformations which composes
+Slide 5 of the slide deck corresponds to `variations-4` notebook here (more specifically,
+it corresponds to the last computation of the directed acycled dataflow graph of
+image transformations in this notebook which composes
 matrix multiplications with other image transformations):
 
 https://github.com/anhinga/julia-notebooks/tree/main/grimoire-team/variations
