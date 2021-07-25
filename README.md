@@ -14,6 +14,10 @@ via matrix multiplication.
 
 ---
 
+### `I am looking for collaborators (ping me by opening an issue).`
+
+---
+
 My poster proposal for JuliaCon 2021
 
 https://github.com/anhinga/julia-notebooks/blob/main/images-as-matrices/presentation/talk-proposal.md
