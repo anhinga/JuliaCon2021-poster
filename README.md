@@ -14,7 +14,7 @@ via matrix multiplication.
 
 ---
 
-### ✅ _`I am looking for collaborators (ping me by opening an issue).`_ ✅
+### ✅ `I am looking for collaborators (ping me by opening an issue).` ✅
 
 ---
 
