@@ -54,3 +54,7 @@ referenced in the README here: https://github.com/anhinga/julia-notebooks/tree/m
 
 I'll keep editing this repository to improve presentation
 of this and related material till the time of JuliaCon 2021 poster session (July 30).
+
+---
+
+### ✅ I am looking for collaborators (ping me by opening an issue). ✅
