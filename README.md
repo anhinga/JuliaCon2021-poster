@@ -14,7 +14,7 @@ via matrix multiplication.
 
 ---
 
-### ✅ `I am looking for collaborators (ping me by opening an issue).` ✅
+### ✅ `I am looking for collaborators (ping me by opening an issue).`
 
 ---
 
@@ -57,4 +57,4 @@ of this and related material till the time of JuliaCon 2021 poster session (July
 
 ---
 
-### ✅ `I am looking for collaborators (ping me by opening an issue).` ✅
+### ✅ `I am looking for collaborators (ping me by opening an issue).`
