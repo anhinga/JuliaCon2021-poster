@@ -1,8 +1,20 @@
-# Materials related to my virtual poster at JuliaCon 2021
+# Multiplying monochrome images as matrices: A*B and softmax
+
+# (Materials related to my virtual poster at JuliaCon 2021)
+
+I obtained images like
+
+![symmetric](symmetric.png)
+
+and
+
+![asymmetric](asymmetric.png)
+
+via matrix multiplication.
+
+---
 
 My poster proposal for JuliaCon 2021
-
-# Multiplying monochrome images as matrices: A*B and softmax
 
 https://github.com/anhinga/julia-notebooks/blob/main/images-as-matrices/presentation/talk-proposal.md
 
