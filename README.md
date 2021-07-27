@@ -54,7 +54,7 @@ referenced in the README here: https://github.com/anhinga/julia-notebooks/tree/m
 
 ---
 
-A July 7 "signed normalization" experiment sheds partial light onto the mechanism of
+A "signed normalization" (conducted on July 7) experiment sheds partial light onto the mechanism of
 the effect produced by softmax normalization of the rows of the left matrix and the columns of right matrix.
 
 See `signed-normalization` subdirectory; the "signed normalization" experiment is joint work with github user `nekel`.
