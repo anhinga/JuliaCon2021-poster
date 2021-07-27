@@ -35,3 +35,5 @@ function normalize_image(im)
     return (1/maximum(im_res))*im_res
 end
 ```
+
+The Julia Jupyter notebook `signed-normalization.ipynb` in this subdirectory documents the experiment.
