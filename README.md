@@ -52,6 +52,15 @@ https://github.com/anhinga/julia-notebooks/tree/main/flux-may-2021
 A number of auxiliary studies (scale invariance, modifications of `softmax` formulas, and such) are
 referenced in the README here: https://github.com/anhinga/julia-notebooks/tree/main/images-as-matrices
 
+---
+
+A July 7 "signed normalization" experiment sheds partial light onto the mechanism of
+the effect produced by softmax normalization of the rows of the left matrix and the columns of right matrix.
+
+See `signed-normalization` subdirectory; the "signed normalization" experiment is joint work with github user `nekel`.
+
+---
+
 I'll keep editing this repository to improve presentation
 of this and related material till the time of JuliaCon 2021 poster session (July 30).
 
