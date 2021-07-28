@@ -1,6 +1,8 @@
 # Multiplying monochrome images as matrices: A*B and softmax
 
-# (Materials related to my virtual poster at JuliaCon 2021)
+Materials related to my virtual poster at JuliaCon 2021: https://pretalx.com/juliacon2021/talk/BXEZAQ/
+
+---
 
 I obtained images like
 
