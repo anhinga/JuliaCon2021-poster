@@ -4,6 +4,8 @@ Materials related to my virtual poster at JuliaCon 2021: https://pretalx.com/jul
 
 Poster video (3 min): https://www.youtube.com/watch?v=CM7cuxYdbRg
 
+All JuliaCon 2021 posters: https://juliacon.org/2021/posters/
+
 ---
 
 I obtained images like
