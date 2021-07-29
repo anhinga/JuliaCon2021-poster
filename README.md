@@ -63,8 +63,7 @@ See `signed-normalization` subdirectory; the "signed normalization" experiment i
 
 ---
 
-I'll keep editing this repository to improve presentation
-of this and related material till the time of JuliaCon 2021 poster session (July 30).
+I might keep adding subdirectories to this repository with additional material.
 
 ---
 
