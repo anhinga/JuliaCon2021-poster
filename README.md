@@ -67,6 +67,19 @@ See `signed-normalization` subdirectory; the "signed normalization" experiment i
 
 ---
 
+An open problem in the ML Collective "Request for Plot" style: https://mlcollective.org/rfp/
+
+It would be very interesting to try modifying formula 1 on page 4 of 
+the famous "Attention Is All You Need" paper introducing the Transformer architecture: 
+https://arxiv.org/abs/1706.03762  by also applying softmax normalization
+to the **columns of the right-hand-side matrix**, _V_,
+but one needs to be able to train some Transformers from scratch in the first place
+to try that. 
+
+Then one could investigate whether this change would be an improvement.
+
+---
+
 I might keep adding subdirectories to this repository with additional material.
 
 ---
