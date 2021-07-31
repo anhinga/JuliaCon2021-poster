@@ -78,6 +78,9 @@ to try that.
 
 Then one could investigate whether this change would be an improvement.
 
+See the `RFP-draft` subdirectory for this "Request for Plot": 
+**is softmax cross-normalization of values fruitful in Transformers?**
+
 ---
 
 I might keep adding subdirectories to this repository with additional material.
