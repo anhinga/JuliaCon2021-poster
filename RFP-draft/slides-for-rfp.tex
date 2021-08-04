@@ -106,7 +106,7 @@ with richer,\\ more fine-grained structure.
 
 \frametitle{Cross-normalization}
 
-{\LARGE softmax\msmagenta{$^\text{T}$}($V$)}\\[2ex]
+
 
 \includegraphics[scale=0.5]{cross-norm}\\[2ex]
 
@@ -116,6 +116,24 @@ values are horizontal stripes\\[2ex]
 
 a vertical vector consists of $i$'s coords of all values for a given $i$
 
+
+
+\end{frame}
+
+\begin{frame}
+
+\frametitle{Remix with classical Transformer attention}
+
+Various ways to remix, e.g.\\[4ex]
+
+
+{\LARGE $\alpha\ *$ softmax\msmagenta{$^\text{T}$}($V$) + (1 - $\alpha$) * ($V$)}\\[4ex]
+
+
+I originally thought about training Transformers from scratch when creating this RFP.\\[4ex]
+
+But if one starts with $\alpha=0$ and increases $\alpha$ gradually, then one should be able
+to try fine-tuning a classical pretrained Transformer while deforming it from $V$ towards \msmagenta{softmax$^\text{T}$}($V$).
 
 
 \end{frame}
