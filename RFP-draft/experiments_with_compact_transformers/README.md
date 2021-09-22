@@ -112,3 +112,26 @@ Script finished in 60.00 minutes, best top-1: 85.77, final top-1: 85.64
 
 (The remark from my notes was: 'Perhaps, one does need to play with learning rate schedule; 
 at the beginning it looked like this is better, but then it started to look like this "10*" is counter-productive'.)
+
+---
+
+Then I recalled the penultimate slide of my RPF talk, slide 9 of https://github.com/anhinga/JuliaCon2021-poster/blob/main/RFP-draft/slides-for-rfp.pdf
+on mixing `x` and `softmax(x)`, and I've also recalled signed normalization results: https://github.com/anhinga/JuliaCon2021-poster/tree/main/signed-normalization
+
+I think the fine-grained details were somewhat better with `(softmax,softmax^T)` than with signed normalization, but
+signed normalization also looked pretty good, and `x` was almost balanced in this sense (`min(x)' tended to be below -3, and `max(x)` tended to be above 5, if I remember correctly).
+
+So, this prompted me to run a mixture, namely `x+softmax(x)` and I started to get what looked like a very tentative and very mild improvement over baseline:
+
+```python
+            x = torch.matmul(F.softmax(self.attention_pool(x), dim=1).transpose(-1, -2), F.softmax(x, dim=1)+x).squeeze(-2)
+```
+
+with result
+
+```
+[Epoch 200] Top-1 88.47 Time: 70.49
+Script finished in 70.49 minutes, best top-1: 88.49, final top-1: 88.47
+```
+
+
