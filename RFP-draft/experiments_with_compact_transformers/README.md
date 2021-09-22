@@ -67,3 +67,48 @@ and that worked better, but still trailed the baseline:
 [Epoch 200] Top-1 86.99 Time: 60.12
 Script finished in 60.12 minutes, best top-1: 87.10, final top-1: 86.99
 ```
+
+Then I includes a number of printouts to see the magnitude of the values involved.
+
+The code preceeding "line 207" in my local copy of `transformers.py` now looks like
+
+```python
+            #print("x.size() = ", x.size())
+            #print("torch.max(x) = ", torch.max(x))
+            #print("torch.min(x) = ", torch.min(x))
+            #mishka_0 = 10*F.softmax(x, dim=1)+x
+            #print("mishka_0.size() = ", mishka_0.size())
+            #print("torch.max(mishka_0) = ", torch.max(mishka_0))
+            #print("torch.min(mishka_0) = ", torch.min(mishka_0))
+            #mishka_1 = self.attention_pool(x)
+            #print("mishka_1.size() = ", mishka_1.size())
+            #mishka_2 = F.softmax(mishka_1, dim=1)
+            #print("mishka_2.size() = ", mishka_2.size())
+            #mishka_3 = mishka_2.transpose(-1, -2)
+            #print("mishka_3.size() = ", mishka_3.size())
+            #mishka_4 = torch.matmul(mishka_3, x)
+            #print("mishka_4.size() = ", mishka_4.size())
+            #mishka_5 = mishka_4.squeeze(-2)
+            #print("mishka_5.size() = ", mishka_5.size())
+            #time.sleep(1)
+            #x = torch.matmul(F.softmax(self.attention_pool(x), dim=1).transpose(-1, -2), x).squeeze(-2)
+            #x = torch.matmul(F.softmax(self.attention_pool(x), dim=1).transpose(-1, -2), F.softmax(x, dim=1)+x).squeeze(-2)
+            x = torch.matmul(F.softmax(self.attention_pool(x), dim=1).transpose(-1, -2), x-F.softmax(x, dim=1)).squeeze(-2)
+```
+
+allowing me to monitor max and mix values of `x` and similar things. Because `x` was having an order of magnitude larger range
+than `softmax(x)`, I decided to try
+
+```python
+            x = torch.matmul(F.softmax(self.attention_pool(x), dim=1).transpose(-1, -2), 10*F.softmax(x, dim=1)).squeeze(-2)
+```
+
+but that performed worse:
+
+```
+[Epoch 200] Top-1 85.64 Time: 60.00
+Script finished in 60.00 minutes, best top-1: 85.77, final top-1: 85.64
+```
+
+(The remark from my notes was: 'Perhaps, one does need to play with learning rate schedule; 
+at the beginning it looked like this is better, but then it started to look like this "10*" is counter-productive'.)
