@@ -1,0 +1,147 @@
+\documentclass{beamer}
+
+\setbeamertemplate{frametitle}[default][center]
+
+\usepackage{graphicx}
+\usepackage{hyperref}
+
+
+%\usepackage{verbatim}
+
+\definecolor{mymagenta}{rgb}{0.9, 0, 0.9}
+
+\newcommand{\msmagenta}[1]{{\color{mymagenta} #1}}
+
+
+\begin{document}
+
+%\title{``Request for Plot":\\ is {\bf softmax cross-normalization}\\ fruitful in transformers?}
+\title{My experience with Compact Transformers}
+\author{Mishka (Michael Bukatin)}
+
+\date
+{\footnotesize 
+Dataflow Matrix Machines project\\[2ex]
+
+\href{https://github.com/anhinga}{\tt https://github.com/anhinga}\\[2ex]
+
+%\msmagenta{I am looking for collaborators}
+}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+
+\frametitle{My August ``Request for Plot"}
+
+Replace\\[2ex]
+
+\hspace{0.5in}Attention($Q, K, V$) = softmax($cKQ^\text{T}$)$V$\\[2ex]
+
+with\\[2ex]
+
+\hspace{0.5in}Attention($Q, K, V$) = softmax($cKQ^\text{T}$)\msmagenta{softmax$^\text{T}$}($V$)\\[4ex]
+
+Does your favorite learning curve improve?\\[8ex]
+
+This requires Transformer training experiments, and those are supposed to be really expensive.
+
+
+\end{frame}
+
+
+\begin{frame}
+
+\frametitle{Compact Transformers}
+
+The beauty of requests for plots is that you often get\\ rapid feedback.\\[2ex]
+
+And in response to my RFP a friend pointed me to\\ {\bf Compact Transformers}!\\[2ex]
+
+{\em Escaping the Big Data Paradigm with Compact Transformers},
+\href{https://arxiv.org/abs/2104.05704}{\tt https://arxiv.org/abs/2104.05704}\\[2ex]
+
+PyTorch original implementation:
+
+\href{https://github.com/SHI-Labs/Compact-Transformers}{\tt https://github.com/SHI-Labs/Compact-Transformers}
+
+
+\end{frame}
+
+\begin{frame}
+
+\frametitle{Rephrasing the abstract of their paper}
+
+{\footnotesize Many have come to believe that Transformers are not suitable for small sets of data. [...] In this paper, we dispel the myth that transformers are "data hungry" and therefore can only be applied to large sets of data. We show for the first time that with the right size and tokenization, transformers can perform head-to-head with state-of-the-art CNNs on small datasets, often with better accuracy and fewer parameters. Our model eliminates the requirement for class token and positional embeddings through a novel sequence pooling strategy and the use of convolutions. It is flexible in terms of model size, and can have as little as 0.28M parameters while achieving good results. Our model can reach 98.00\% accuracy when training from scratch on CIFAR-10, which is a significant improvement over previous Transformer based models.}
+
+\end{frame}
+
+\begin{frame}
+
+\frametitle{Rephrasing their abstract, continued}
+
+{\footnotesize It also outperforms many modern CNN based approaches, such as ResNet, and even some recent NAS-based approaches, such as Proxyless-NAS. Our simple and compact design democratizes transformers by making them accessible to those with limited computing resources and/or dealing with small datasets. Our method also works on larger datasets, such as ImageNet (82.71\% accuracy with 29\% parameters of ViT), and NLP tasks as well. Our code and pre-trained models are publicly available.}
+
+\end{frame}
+
+
+\begin{frame}
+
+\frametitle{My experiments, rather inconclusive}
+
+Compact Transformers worked well, took me an hour to do a training run of their default configuration.\\[2ex]
+
+I created a fork in order to fix a version of Compact Transformers I was working with:\\[2ex]
+
+\href{https://github.com/anhinga/Compact-Transformers}{\tt https://github.com/anhinga/Compact-Transformers}\\[2ex]
+
+Speaking of my RFP, the results are quite inconclusive so far. I've recorded them in the README here:\\[2ex]
+
+\href{https://github.com/anhinga/JuliaCon2021-poster/tree/main/RFP-draft/experiments\_with\_compact\_transformers}
+{\tiny\tt https://github.com/anhinga/JuliaCon2021-poster/tree/main/RFP-draft/experiments\_with\_compact\_transformers}
+
+
+\end{frame}
+
+
+
+
+\begin{frame}
+
+\frametitle{Remix with classical Transformer attention}
+
+Various ways to remix, e.g.\\[4ex]
+
+
+{\LARGE $\alpha\ *$ softmax\msmagenta{$^\text{T}$}($V$) + (1 - $\alpha$) * ($V$)}\\[4ex]
+
+
+I originally thought about training Transformers from scratch when creating this RFP.\\[4ex]
+
+But if one starts with $\alpha=0$ and increases $\alpha$ gradually, then one should be able
+to try fine-tuning a classical pretrained Transformer while deforming it from $V$ towards \msmagenta{softmax$^\text{T}$}($V$).
+
+
+\end{frame}
+
+\begin{frame}
+
+\frametitle{Contact}
+
+Open an issue in\\[2ex]
+
+\href{https://github.com/anhinga/JuliaCon2021-poster}{\tt https://github.com/anhinga/JuliaCon2021-poster}\\[2ex]
+
+
+or send an e-mail to bukatin @ cs dot brandeis dot edu
+
+
+
+\end{frame}
+
+
+
+
+\end{document}
