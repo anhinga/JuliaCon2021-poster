@@ -119,7 +119,7 @@ Then I recalled the penultimate slide of my RPF talk, slide 9 of https://github.
 on mixing `x` and `softmax(x)`, and I've also recalled signed normalization results: https://github.com/anhinga/JuliaCon2021-poster/tree/main/signed-normalization
 
 I think the fine-grained details were somewhat better with `(softmax,softmax^T)` than with signed normalization, but
-signed normalization also looked pretty good, and `x` was almost balanced in this sense (`min(x)' tended to be below -3, and `max(x)` tended to be above 5, if I remember correctly).
+signed normalization also looked pretty good, and `x` was almost balanced in this sense (`min(x)` tended to be below -3, and `max(x)` tended to be above 5, if I remember correctly).
 
 So, this prompted me to run a mixture, namely `x+softmax(x)` and I started to get what looked like a very tentative and very mild improvement over baseline:
 
@@ -134,4 +134,31 @@ with result
 Script finished in 70.49 minutes, best top-1: 88.49, final top-1: 88.47
 ```
 
+Then I decided that since absolute value of `max(x)` tended to be larger than absolute value of `min(x)`, it would make sense to rather consider
 
+```python
+            x = torch.matmul(F.softmax(self.attention_pool(x), dim=1).transpose(-1, -2), x-F.softmax(x, dim=1)).squeeze(-2)
+```
+
+Suddently, the optimization became much less stable, getting ahead the previous one, then falling behind as epochs progressed,
+and it ended somewhat behind:
+
+```
+[Epoch 200] Top-1 88.12 Time: 58.26
+Script finished in 58.26 minutes, best top-1: 88.20, final top-1: 88.12
+```
+
+I decided to rerun (and to check in the process, how much non-determinism is from run to run).
+
+And this time I got a much better result:
+
+```
+[Epoch 200] Top-1 88.67 Time: 58.07
+Script finished in 58.07 minutes, best top-1: 88.67, final top-1: 88.67
+```
+
+But comparing in the presence of this much jitter is a nightmare, unless one configuration is overwhelmingly better.
+
+One might need to do tons of reruns (in parallel, perhaps) to get statistics...
+
+I made a pause here to ponder the situation a bit.
