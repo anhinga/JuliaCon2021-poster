@@ -165,7 +165,6 @@ I made a pause here to ponder the situation a bit.
 
 ---
 ---
----
 
 I reported this here
 
@@ -173,7 +172,7 @@ https://mlcollective.org/research-jam-4/
 
 https://www.youtube.com/watch?v=SQXIFgcJay4 (11 miniutes starting from 35:25 mark)
 
-and Jason noted that a grid of (V +/- alpha * sofmax^T(V)) should be computed for a variety of _alpha_.
+and Jason noted that a grid of `(V +/- alpha * sofmax^T(V))` should be computed for a variety of _alpha_.
 
 Then the training jitters would not matter all that much, because we would get a trend curve depending on _alpha_, and this would
 provide a reasonably clear picture.
