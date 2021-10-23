@@ -6,6 +6,10 @@ https://www.meetup.com/stuttgart-julia-programming-language-meetup-gruppe/events
 
 Julia 1.6.3. All Julia packages are updated today. (I am using Windows 10 machine to run this at home. My Anaconda is a bit old, from early Summer 2021.)
 
+GitHub is not performing well when rendering large Julia Jupyter notebooks, but it should be visible on the `nbviewer`:
+
+https://nbviewer.org/github/anhinga/JuliaCon2021-poster/blob/main/Stuttgart-Julia-meetup/oct-23-2021.ipynb
+
 If reproducing the `oct-23-2021.ipynb` Julia Jupyter notebook, run
 
 ```julia
