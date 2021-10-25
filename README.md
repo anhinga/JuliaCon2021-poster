@@ -83,6 +83,11 @@ See the `RFP-draft` subdirectory for this "Request for Plot":
 
 ---
 
+Fresh minimalistic Julia Jupyter notebook working under Julia 1.6.3 with all packages updated on Oct 23, 2021: 
+see the subdirectory made for `Stuttgart-Julia-meetup` presentation on Oct 23.
+
+---
+
 I might keep adding subdirectories to this repository with additional material.
 
 ---
