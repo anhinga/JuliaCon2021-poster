@@ -38,3 +38,30 @@ https://github.com/jsa-aerial/DMM - Clojure implementation
 https://arxiv.org/abs/1712.07447 - reference paper
 
 https://researcher.watson.ibm.com/researcher/files/us-lmandel/aisys18-bukatin.pdf - reference slide deck
+
+---
+
+One month later: the run reproduces with Julia 1.7, but there is an interesting numerical drift.
+
+We had the initial loss function value
+
+```julia
+julia> loss(m, target_value)
+
+20.39928388822998
+```
+
+Now we have
+
+```julia
+julia> loss(m, target_value)
+
+20.400127548040803
+```
+
+It's interesting that something like this changed in Julia 1.7:
+
+```
+julia> 20.400127548040803/20.39928388822998
+1.0000413573248672
+```
