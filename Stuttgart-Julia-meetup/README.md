@@ -61,7 +61,7 @@ julia> loss(m, target_value)
 
 It's interesting that something like this changed in Julia 1.7:
 
-```
+```julia
 julia> 20.400127548040803/20.39928388822998
 1.0000413573248672
 ```
